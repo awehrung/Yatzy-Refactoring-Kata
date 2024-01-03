@@ -1,115 +1,111 @@
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class YatzyTest {
 
     @Test
-    fun chance_scores_sum_of_all_dice() {
-        val expected = 15
-        val actual = Yatzy.chance(2, 3, 4, 5, 1)
-        assertEquals(expected, actual)
-        assertEquals(16, Yatzy.chance(3, 3, 4, 5, 1))
+    fun test_chance_scores() {
+        assertEquals(15, Yatzy(2, 3, 4, 5, 1).chance())
+        assertEquals(16, Yatzy(3, 3, 4, 5, 1).chance())
     }
 
     @Test
-    fun yatzy_scores_50() {
-        val expected = 50
-        val actual = Yatzy.yatzy(4, 4, 4, 4, 4)
-        assertEquals(expected, actual)
-        assertEquals(50, Yatzy.yatzy(6, 6, 6, 6, 6))
-        assertEquals(0, Yatzy.yatzy(6, 6, 6, 6, 3))
+    fun test_yatzy_scores() {
+        assertEquals(50, Yatzy(4, 4, 4, 4, 4).yatzy())
+        assertEquals(50, Yatzy(6, 6, 6, 6, 6).yatzy())
+        assertEquals(0, Yatzy(6, 6, 6, 6, 3).yatzy())
     }
 
     @Test
     fun test_1s() {
-        assertTrue(Yatzy.ones(1, 2, 3, 4, 5) === 1)
-        assertEquals(2, Yatzy.ones(1, 2, 1, 4, 5))
-        assertEquals(0, Yatzy.ones(6, 2, 2, 4, 5))
-        assertEquals(4, Yatzy.ones(1, 2, 1, 1, 1))
+        assertEquals(1, Yatzy(1, 2, 3, 4, 5).ones())
+        assertEquals(2, Yatzy(1, 2, 1, 4, 5).ones())
+        assertEquals(4, Yatzy(1, 2, 1, 1, 1).ones())
+        assertEquals(0, Yatzy(6, 2, 2, 4, 5).ones())
     }
 
     @Test
     fun test_2s() {
-        assertEquals(4, Yatzy.twos(1, 2, 3, 2, 6))
-        assertEquals(10, Yatzy.twos(2, 2, 2, 2, 2))
+        assertEquals(4, Yatzy(1, 2, 3, 2, 6).twos())
+        assertEquals(10, Yatzy(2, 2, 2, 2, 2).twos())
     }
 
     @Test
-    fun test_threes() {
-        assertEquals(6, Yatzy.threes(1, 2, 3, 2, 3))
-        assertEquals(12, Yatzy.threes(2, 3, 3, 3, 3))
+    fun test_3s() {
+        assertEquals(6, Yatzy(1, 2, 3, 2, 3).threes())
+        assertEquals(12, Yatzy(2, 3, 3, 3, 3).threes())
     }
 
     @Test
-    fun fours_test() {
+    fun test_4s() {
         assertEquals(12, Yatzy(4, 4, 4, 5, 5).fours())
         assertEquals(8, Yatzy(4, 4, 5, 5, 5).fours())
         assertEquals(4, Yatzy(4, 5, 5, 5, 5).fours())
     }
 
     @Test
-    fun fives() {
+    fun test_5s() {
         assertEquals(10, Yatzy(4, 4, 4, 5, 5).fives())
         assertEquals(15, Yatzy(4, 4, 5, 5, 5).fives())
         assertEquals(20, Yatzy(4, 5, 5, 5, 5).fives())
     }
 
     @Test
-    fun sixes_test() {
-        assertEquals(0, Yatzy(4, 4, 4, 5, 5).sixes())
+    fun test_6s() {
         assertEquals(6, Yatzy(4, 4, 6, 5, 5).sixes())
         assertEquals(18, Yatzy(6, 5, 6, 6, 5).sixes())
+        assertEquals(0, Yatzy(4, 4, 4, 5, 5).sixes())
     }
 
     @Test
-    fun one_pair() {
-        assertEquals(6, Yatzy.score_pair(3, 4, 3, 5, 6))
-        assertEquals(6, Yatzy.score_pair(1, 3, 3, 3, 1))
-        assertEquals(10, Yatzy.score_pair(5, 3, 3, 3, 5))
-        assertEquals(12, Yatzy.score_pair(5, 3, 6, 6, 5))
-        assertEquals(0, Yatzy.score_pair(3, 4, 1, 5, 6))
+    fun test_one_pair() {
+        assertEquals(6, Yatzy(3, 4, 3, 5, 6).onePair())
+        assertEquals(6, Yatzy(1, 3, 3, 3, 1).onePair())
+        assertEquals(10, Yatzy(5, 3, 3, 3, 5).onePair())
+        assertEquals(12, Yatzy(5, 3, 6, 6, 5).onePair())
+        assertEquals(0, Yatzy(3, 4, 1, 5, 6).onePair())
     }
 
     @Test
-    fun two_Pair() {
-        assertEquals(16, Yatzy.two_pair(3, 3, 5, 4, 5))
-        assertEquals(16, Yatzy.two_pair(3, 3, 5, 5, 5))
-        assertEquals(0, Yatzy.two_pair(3, 3, 2, 4, 5))
+    fun test_two_pair() {
+        assertEquals(16, Yatzy(3, 3, 5, 4, 5).twoPair())
+        assertEquals(16, Yatzy(3, 3, 5, 5, 5).twoPair())
+        assertEquals(0, Yatzy(3, 3, 2, 4, 5).twoPair())
     }
 
     @Test
-    fun three_of_a_kind() {
-        assertEquals(9, Yatzy.three_of_a_kind(3, 3, 3, 4, 5))
-        assertEquals(15, Yatzy.three_of_a_kind(5, 3, 5, 4, 5))
-        assertEquals(9, Yatzy.three_of_a_kind(3, 3, 3, 3, 5))
-        assertEquals(0, Yatzy.three_of_a_kind(3, 1, 3, 4, 5))
+    fun test_three_of_a_kind() {
+        assertEquals(9, Yatzy(3, 3, 3, 4, 5).threeOfAKind())
+        assertEquals(15, Yatzy(5, 3, 5, 4, 5).threeOfAKind())
+        assertEquals(9, Yatzy(3, 3, 3, 3, 5).threeOfAKind())
+        assertEquals(0, Yatzy(3, 1, 3, 4, 5).threeOfAKind())
     }
 
     @Test
-    fun four_of_a_knd() {
-        assertEquals(12, Yatzy.four_of_a_kind(3, 3, 3, 3, 5))
-        assertEquals(20, Yatzy.four_of_a_kind(5, 5, 5, 4, 5))
-        assertEquals(9, Yatzy.three_of_a_kind(3, 3, 3, 3, 3))
+    fun test_four_of_a_kind() {
+        assertEquals(12, Yatzy(3, 3, 3, 3, 5).fourOfAKind())
+        assertEquals(20, Yatzy(5, 5, 5, 4, 5).fourOfAKind())
+        assertEquals(12, Yatzy(3, 3, 3, 3, 3).fourOfAKind())
+        assertEquals(0, Yatzy(3, 2, 3, 3, 5).fourOfAKind())
     }
 
     @Test
-    fun smallStraight() {
-        assertEquals(15, Yatzy.smallStraight(1, 2, 3, 4, 5))
-        assertEquals(15, Yatzy.smallStraight(2, 3, 4, 5, 1))
-        assertEquals(0, Yatzy.smallStraight(1, 2, 2, 4, 5))
+    fun test_small_straight() {
+        assertEquals(15, Yatzy(1, 2, 3, 4, 5).smallStraight())
+        assertEquals(15, Yatzy(2, 3, 4, 5, 1).smallStraight())
+        assertEquals(0, Yatzy(1, 2, 2, 4, 5).smallStraight())
     }
 
     @Test
-    fun largeStraight() {
-        assertEquals(20, Yatzy.largeStraight(6, 2, 3, 4, 5))
-        assertEquals(20, Yatzy.largeStraight(2, 3, 4, 5, 6))
-        assertEquals(0, Yatzy.largeStraight(1, 2, 2, 4, 5))
+    fun test_large_straight() {
+        assertEquals(20, Yatzy(6, 2, 3, 4, 5).largeStraight())
+        assertEquals(20, Yatzy(2, 3, 4, 5, 6).largeStraight())
+        assertEquals(0, Yatzy(1, 2, 2, 4, 5).largeStraight())
     }
 
     @Test
-    fun fullHouse() {
-        assertEquals(18, Yatzy.fullHouse(6, 2, 2, 2, 6))
-        assertEquals(0, Yatzy.fullHouse(2, 3, 4, 5, 6))
+    fun test_full_house() {
+        assertEquals(18, Yatzy(6, 2, 2, 2, 6).fullHouse())
+        assertEquals(0, Yatzy(2, 3, 4, 5, 6).fullHouse())
     }
 }
